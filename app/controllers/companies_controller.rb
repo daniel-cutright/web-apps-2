@@ -10,6 +10,8 @@ class CompaniesController < ApplicationController
     # find a Company
     @id = params["id"]
     @company = Company.find_by({"id" => @id})
+    # find all contacts for this company
+    @contacts = Contact.where({"company_id" => @company["id"]})
     # render companies/show view with details about Company
   end
 
@@ -20,7 +22,13 @@ class CompaniesController < ApplicationController
   def create
     # start with a new Company
     # assign user-entered form data to Company's columns
+    company = Company.new
+    company["name"] = params["name"]
+    company["city"] = params["city"]
+    company["state"] = params["state"]
     # save Company row
+    company.save
+    # redirect user
     redirect_to "/companies"
   end
 

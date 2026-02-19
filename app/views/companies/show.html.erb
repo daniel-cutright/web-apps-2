@@ -2,17 +2,26 @@
 
 <h1><%= @company["name"] %></h1>
 
+<% if @company["url"] %>
+  <p>
+    <a href="<%= @company["url"] %>" target="_blank"><%= @company["url"] %></a>
+  </p>
+<% end %>
+
 <h2><%= @company["city"]%>, <%= @company["state"] %></h2>
 
 <h3>Contacts</h3>
 
 <ul>
-  <li>Michael Scott</li>
-  <li>Dwight Schrute</li>
+  <% for contact in @contacts %>
+    <li>
+      <%= contact["first_name"] %> <%= contact["last_name"] %> - <%= contact["email"] %>
+    </li>
+  <% end %>
 </ul>
 
 <p>
-  <a href="">New Contact</a>
+  <a href="/contacts/new?company_id=<%= @company["id"] %>">New Contact</a>
 </p>
 
 <p>
